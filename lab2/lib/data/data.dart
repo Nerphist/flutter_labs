@@ -33,7 +33,7 @@ List<ProductModel> getProducts() {
 
   productModel.productName = "Special  gift card";
   productModel.ratingQuantity = 20;
-  productModel.imgUrl = "";
+  productModel.imgUrl = "assets/amazon-gift-card.png";
   productModel.rating = 3;
   productModel.price = 5;
   products.add(productModel);
@@ -41,7 +41,7 @@ List<ProductModel> getProducts() {
 
   productModel.productName = "Special  gift card";
   productModel.ratingQuantity = 1;
-  productModel.imgUrl = "";
+  productModel.imgUrl = "assets/amazon-gift-card.png";
   productModel.rating = 2;
   productModel.price = 10;
   products.add(productModel);
@@ -49,7 +49,7 @@ List<ProductModel> getProducts() {
 
   productModel.productName = "Special  gift card";
   productModel.ratingQuantity = 6;
-  productModel.imgUrl = "";
+  productModel.imgUrl = "assets/amazon-gift-card.png";
   productModel.rating = 5;
   productModel.price = 15;
   products.add(productModel);
@@ -57,7 +57,7 @@ List<ProductModel> getProducts() {
 
   productModel.productName = "Special  gift card";
   productModel.ratingQuantity = 4;
-  productModel.imgUrl = "";
+  productModel.imgUrl = "assets/amazon-gift-card.png";
   productModel.rating = 3;
   productModel.price = 20;
   products.add(productModel);
@@ -65,7 +65,7 @@ List<ProductModel> getProducts() {
 
   productModel.productName = "Special  gift card";
   productModel.ratingQuantity = 2;
-  productModel.imgUrl = "";
+  productModel.imgUrl = "assets/amazon-gift-card.png";
   productModel.rating = 5;
   productModel.price = 50;
   products.add(productModel);
@@ -73,7 +73,7 @@ List<ProductModel> getProducts() {
 
   productModel.productName = "Special  gift card";
   productModel.ratingQuantity = 1;
-  productModel.imgUrl = "";
+  productModel.imgUrl = "assets/amazon-gift-card.png";
   productModel.rating = 5;
   productModel.price = 100;
   products.add(productModel);

@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:lab2/models/trending_product_model.dart';
+import 'package:lab2/state/cart_state.dart';
 import 'package:lab2/resources/colors.dart';
 import 'package:lab2/views/star_rating.dart';
+import 'package:provider/provider.dart';
 
 class TrendingView extends StatelessWidget {
   final TrendingProductModel product;
+
   TrendingView({this.product});
   @override
   Widget build(BuildContext context) {
@@ -84,21 +87,26 @@ class TrendingView extends StatelessWidget {
                 SizedBox(
                   height: 13,
                 ),
-                Container(
-                  height: 30,
-                  padding: EdgeInsets.symmetric(horizontal: 12),
-                  alignment: Alignment.center,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(4),
-                      gradient: LinearGradient(colors: [
-                        const Color(0xff8EA2FF),
-                        const Color(0xff557AC7)
-                      ])),
-                  child: Text(
-                    "Add to cart",
-                    style: TextStyle(color: Colors.white),
-                  ),
-                )
+                GestureDetector(
+                    onTap: () {
+                      var cart = context.read<CartState>();
+                      cart.addProduct(product);
+                    },
+                    child: Container(
+                      height: 30,
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          gradient: LinearGradient(colors: [
+                            const Color(0xff8EA2FF),
+                            const Color(0xff557AC7)
+                          ])),
+                      child: Text(
+                        "Add to cart",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ))
               ],
             ),
           )
