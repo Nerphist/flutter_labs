@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/views/cart_view.dart';
 import 'data/data.dart';
 import 'package:lab2/models/category_model.dart';
 import 'package:lab2/models/product_model.dart';
 import 'package:lab2/models/trending_product_model.dart';
-import 'package:lab2/views/category.dart';
+import 'package:lab2/views/category_view.dart';
 import 'package:lab2/views/product_view.dart';
 import 'package:lab2/views/trending_view.dart';
 import 'package:lab2/views/home_view.dart';
@@ -71,39 +72,89 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.symmetric(horizontal: 12),
-              padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                    offset: Offset(5.0, 5.0),
-                    blurRadius: 5.0,
-                    color: Colors.black87.withOpacity(0.05),
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(left: 9),
-                    child: Text(
-                      "Search",
-                      style: TextStyle(color: Color(0xff9B9B9B), fontSize: 17),
+            SizedBox(
+              height: 20,
+            ),
+            Row(
+              children: [
+                Flexible(
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 12),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(8),
+                      boxShadow: <BoxShadow>[
+                        BoxShadow(
+                          offset: Offset(5.0, 5.0),
+                          blurRadius: 5.0,
+                          color: Colors.black87.withOpacity(0.05),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(left: 9),
+                          child: Text(
+                            "Search",
+                            style: TextStyle(
+                                color: Color(0xff9B9B9B), fontSize: 17),
+                          ),
+                        ),
+                        Icon(Icons.search),
+                      ],
                     ),
                   ),
-                  Icon(Icons.search),
-                ],
-              ),
+                  flex: 8,
+                ),
+                Flexible(
+                  child: GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(new MaterialPageRoute(
+                            builder: (BuildContext context) => new CartView()));
+                      },
+                      child: Stack(children: [
+                        Container(
+                          width: 30.0,
+                          child: IconButton(
+                            icon: Icon(Icons.shopping_cart),
+                            color: Colors.black,
+                            onPressed: null,
+                          ),
+                        ),
+                        Positioned(
+                          top: 20.0,
+                          right: 10.0,
+                          child: Stack(children: <Widget>[
+                            Icon(Icons.brightness_1,
+                                size: 20.0,
+                                color: Color(0xff8EA2FF).withOpacity(0.8)),
+                            Positioned(
+                                top: 4.0,
+                                right: 6.0,
+                                child: Center(
+                                  child: Text(
+                                    '5',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11.0,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                )),
+                          ]),
+                        )
+                      ])),
+                  flex: 1,
+                )
+              ],
             ),
             SizedBox(
               height: 30,
             ),
 
-            /// Trending
+            // Trending
             Container(
               padding: EdgeInsets.symmetric(horizontal: 22),
               child: Row(
@@ -132,12 +183,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return TrendingView(
-                      price: trendingProducts[index].price,
-                      productName: trendingProducts[index].productName,
-                      storeName: trendingProducts[index].storeName,
-                      imgUrl: trendingProducts[index].imgUrl,
-                      ratingQuantity: trendingProducts[index].ratingQuantity,
-                      rating: trendingProducts[index].rating,
+                      product: trendingProducts[index],
                     );
                   }),
             ),
@@ -146,7 +192,7 @@ class _MyHomePageState extends State<MyHomePage> {
               height: 40,
             ),
 
-            /// Best Selling
+            // New arrivals
             Container(
               padding: EdgeInsets.symmetric(horizontal: 22),
               child: Row(
@@ -174,13 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
-                    return ProductTile(
-                      priceInDollars: products[index].price,
-                      productName: products[index].productName,
-                      rating: products[index].rating,
-                      imgUrl: products[index].imgUrl,
-                      noOfRating: products[index].ratingQuantity,
-                    );
+                    return ProductView(product: products[index]);
                   }),
             ),
             Container(
@@ -202,10 +242,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) {
                     return CategoryView(
-                      categoryName: categories[index].categoryName,
-                      imgAssetPath: categories[index].imgAssetPath,
-                      color1: categories[index].color1,
-                      color2: categories[index].color2,
+                      category: categories[index],
                     );
                   }),
             )

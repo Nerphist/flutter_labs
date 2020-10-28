@@ -1,19 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/models/product_model.dart';
 import 'package:lab2/resources/colors.dart';
 import 'package:lab2/views/star_rating.dart';
 
-class ProductTile extends StatelessWidget {
-  final int priceInDollars;
-  final String productName;
-  final int rating;
-  final String imgUrl;
-  final int noOfRating;
-  ProductTile(
-      {this.priceInDollars,
-      this.imgUrl,
-      this.rating,
-      this.productName,
-      this.noOfRating});
+class ProductView extends StatelessWidget {
+  final ProductModel product;
+  ProductView({this.product});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,27 +32,27 @@ class ProductTile extends StatelessWidget {
                         const Color(0xff557AC7).withOpacity(0.5)
                       ])),
                   child: Text(
-                    "\$$priceInDollars",
+                    "\$${product.price}",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
               ],
             ),
           ),
-          Text(productName),
+          Text(product.productName),
           SizedBox(
             height: 8,
           ),
           Row(
             children: <Widget>[
               StarRating(
-                rating: rating,
+                rating: product.rating,
               ),
               SizedBox(
                 width: 10,
               ),
               Text(
-                "($noOfRating)",
+                "(${product.ratingQuantity})",
                 style: TextStyle(color: textGrey, fontSize: 12),
               )
             ],

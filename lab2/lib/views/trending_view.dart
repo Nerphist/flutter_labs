@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/models/trending_product_model.dart';
 import 'package:lab2/resources/colors.dart';
 import 'package:lab2/views/star_rating.dart';
 
 class TrendingView extends StatelessWidget {
-  final String productName;
-  final String storeName;
-  final String imgUrl;
-  final int ratingQuantity;
-  final int price;
-  final int rating;
-  TrendingView(
-      {this.productName,
-      this.storeName,
-      this.imgUrl,
-      this.rating,
-      this.ratingQuantity,
-      this.price});
+  final TrendingProductModel product;
+  TrendingView({this.product});
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -38,7 +28,7 @@ class TrendingView extends StatelessWidget {
             child: Stack(
               children: <Widget>[
                 Image.asset(
-                  this.imgUrl,
+                  this.product.imgUrl,
                   height: 150,
                   fit: BoxFit.cover,
                 ),
@@ -54,7 +44,7 @@ class TrendingView extends StatelessWidget {
                         const Color(0xff557AC7).withOpacity(0.5)
                       ])),
                   child: Text(
-                    "\$$price",
+                    "\$${product.price}",
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
@@ -67,11 +57,11 @@ class TrendingView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  productName,
+                  product.productName,
                   style: TextStyle(color: Colors.black87, fontSize: 19),
                 ),
                 Text(
-                  storeName,
+                  product.storeName,
                   style: TextStyle(color: textGrey),
                 ),
                 SizedBox(
@@ -80,13 +70,13 @@ class TrendingView extends StatelessWidget {
                 Row(
                   children: <Widget>[
                     StarRating(
-                      rating: rating,
+                      rating: product.rating,
                     ),
                     SizedBox(
                       width: 3,
                     ),
                     Text(
-                      "($ratingQuantity)",
+                      "(${product.ratingQuantity})",
                       style: TextStyle(color: textGrey, fontSize: 12),
                     )
                   ],
