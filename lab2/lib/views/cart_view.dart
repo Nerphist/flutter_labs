@@ -1,26 +1,35 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/bloc/cart_bloc.dart';
 import 'package:lab2/models/product_model.dart';
-import 'package:lab2/state/cart_state.dart';
 import 'package:provider/provider.dart';
 
 class CartView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    CartState state = context.watch<CartState>();
-    return Scaffold(
-      body: Container(
-        child: Padding(
-          padding: const EdgeInsets.all(32),
-          child: GridView.count(
-            crossAxisCount: 2,
-            children: List.generate(state.products.length, (index) {
-              return CartItemView(
-                product: state.products[index],
-              );
-            }),
-          ),
-        ),
-      ),
+    return Consumer<CartBloc>(
+      builder: (context, cartBloc, child) {
+        return StreamBuilder(
+          stream: cartBloc.stream,
+          initialData: new List(),
+          builder: (context, snapshot) {
+            return Scaffold(
+              body: Container(
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: GridView.count(
+                    crossAxisCount: 2,
+                    children: List.generate(snapshot.data.length, (index) {
+                      return CartItemView(
+                        product: snapshot.data[index],
+                      );
+                    }),
+                  ),
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }
@@ -60,8 +69,8 @@ class CartItemView extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    var state = context.read<CartState>();
-                    state.removeProduct(product);
+                    var bloc = context.read<CartBloc>();
+                    bloc.removeFromCart(product);
                   },
                   child: Container(
                     height: 25,

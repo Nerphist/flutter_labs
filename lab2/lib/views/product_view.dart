@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/bloc/cart_bloc.dart';
 import 'package:lab2/models/product_model.dart';
 import 'package:lab2/resources/colors.dart';
-import 'package:lab2/state/cart_state.dart';
 import 'package:lab2/views/star_rating.dart';
 import 'package:provider/provider.dart';
 
@@ -14,8 +14,8 @@ class ProductView extends StatelessWidget {
       margin: EdgeInsets.only(right: 16),
       child: GestureDetector(
         onTap: () {
-          var state = context.read<CartState>();
-          state.addProduct(product);
+          var cart = context.read<CartBloc>();
+          cart.addToCart(product);
         },
         child: Column(
           children: <Widget>[

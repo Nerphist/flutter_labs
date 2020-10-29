@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lab2/state/cart_state.dart';
+import 'package:lab2/bloc/cart_bloc.dart';
 import 'package:lab2/views/cart_view.dart';
 import 'package:provider/provider.dart';
 import 'data/data.dart';
@@ -19,8 +19,10 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-        create: (context) => CartState(),
+    return MultiProvider(
+        providers: [
+          Provider<CartBloc>(create: (_) => CartBloc()),
+        ],
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
@@ -136,18 +138,30 @@ class _MyHomePageState extends State<MyHomePage> {
                                 size: 20.0,
                                 color: Color(0xff8EA2FF).withOpacity(0.8)),
                             Positioned(
-                                top: 4.0,
-                                right: 6.0,
-                                child: Center(
-                                    child: Consumer<CartState>(
-                                  builder: (context, cartState, child) => Text(
-                                    '${cartState.products.length}',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontSize: 11.0,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                ))),
+                              top: 4.0,
+                              right: 6.0,
+                              child: Center(
+                                child: Consumer<CartBloc>(
+                                  builder: (context, cartBloc, child) {
+                                    return StreamBuilder(
+                                      initialData: new List(),
+                                      stream: cartBloc.stream,
+                                      builder: (context, snapshot) {
+                                        int len;
+                                        len = snapshot.data.length;
+                                        return Text(
+                                          '$len',
+                                          style: TextStyle(
+                                              color: Colors.white,
+                                              fontSize: 11.0,
+                                              fontWeight: FontWeight.w500),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ),
                           ]),
                         )
                       ])),

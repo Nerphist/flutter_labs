@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:lab2/bloc/cart_bloc.dart';
 import 'package:lab2/models/trending_product_model.dart';
-import 'package:lab2/state/cart_state.dart';
 import 'package:lab2/resources/colors.dart';
 import 'package:lab2/views/star_rating.dart';
 import 'package:provider/provider.dart';
@@ -89,8 +89,8 @@ class TrendingView extends StatelessWidget {
                 ),
                 GestureDetector(
                     onTap: () {
-                      var cart = context.read<CartState>();
-                      cart.addProduct(product);
+                      var cart = context.read<CartBloc>();
+                      cart.addToCart(product);
                     },
                     child: Container(
                       height: 30,
