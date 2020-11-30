@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lab2/bloc/cart_bloc.dart';
+import 'package:lab2/utils/coronavirus_api.dart';
 import 'package:lab2/views/cart_view.dart';
 import 'package:provider/provider.dart';
 import 'data/data.dart';
@@ -169,8 +170,44 @@ class _MyHomePageState extends State<MyHomePage> {
                 )
               ],
             ),
+
             SizedBox(
-              height: 30,
+              height: 10,
+            ),
+            Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: FutureBuilder<int>(
+                  future: getLatestConfirmed(),
+                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                    var infoText = 'Be aware!\nConfirmed corona cases: ';
+                    var confirmedCases = '';
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      confirmedCases = 'more then a minute ago!';
+                    } else {
+                      if (!snapshot.hasError)
+                        confirmedCases = snapshot.data.toString();
+                    }
+                    return Text(infoText + confirmedCases);
+                  },
+                )),
+            Padding(
+                padding: const EdgeInsets.only(left: 25),
+                child: FutureBuilder<int>(
+                  future: getLatestDead(),
+                  builder: (BuildContext context, AsyncSnapshot<int> snapshot) {
+                    var infoText = 'People passed away: ';
+                    var confirmedCases = '';
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      confirmedCases = 'too many';
+                    } else {
+                      if (!snapshot.hasError)
+                        confirmedCases = snapshot.data.toString();
+                    }
+                    return Text(infoText + confirmedCases);
+                  },
+                )),
+            SizedBox(
+              height: 10,
             ),
 
             // Trending
