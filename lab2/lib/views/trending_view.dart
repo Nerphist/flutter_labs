@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lab2/bloc/cart_bloc.dart';
 import 'package:lab2/models/trending_product_model.dart';
 import 'package:lab2/resources/colors.dart';
+import 'package:lab2/views/product_standalone.dart';
 import 'package:lab2/views/star_rating.dart';
 import 'package:provider/provider.dart';
 
@@ -67,9 +68,6 @@ class TrendingView extends StatelessWidget {
                   product.storeName,
                   style: TextStyle(color: textGrey),
                 ),
-                SizedBox(
-                  height: 8,
-                ),
                 Row(
                   children: <Widget>[
                     StarRating(
@@ -83,9 +81,6 @@ class TrendingView extends StatelessWidget {
                       style: TextStyle(color: textGrey, fontSize: 12),
                     )
                   ],
-                ),
-                SizedBox(
-                  height: 13,
                 ),
                 GestureDetector(
                     onTap: () {
@@ -104,6 +99,29 @@ class TrendingView extends StatelessWidget {
                           ])),
                       child: Text(
                         "Add to cart",
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    )),
+                GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        ProductStandalone.routeName,
+                        arguments: product,
+                      );
+                    },
+                    child: Container(
+                      height: 30,
+                      padding: EdgeInsets.symmetric(horizontal: 12),
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(4),
+                          gradient: LinearGradient(colors: [
+                            const Color(0xff8EA2FF),
+                            const Color(0xff557AC7)
+                          ])),
+                      child: Text(
+                        "Navigate",
                         style: TextStyle(color: Colors.white),
                       ),
                     ))

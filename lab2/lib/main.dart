@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lab2/bloc/cart_bloc.dart';
 import 'package:lab2/utils/coronavirus_api.dart';
 import 'package:lab2/views/cart_view.dart';
+import 'package:lab2/views/product_standalone.dart';
 import 'package:provider/provider.dart';
 import 'data/data.dart';
 import 'package:lab2/models/category_model.dart';
@@ -27,22 +28,14 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            // This is the theme of your application.
-            //
-            // Try running your application with "flutter run". You'll see the
-            // application has a blue toolbar. Then, without quitting the app, try
-            // changing the primarySwatch below to Colors.green and then invoke
-            // "hot reload" (press "r" in the console where you ran "flutter run",
-            // or simply save your changes to "hot reload" in a Flutter IDE).
-            // Notice that the counter didn't reset back to zero; the application
-            // is not restarted.
             primarySwatch: Colors.blue,
-            // This makes the visual density adapt to the platform that you run
-            // the app on. For desktop platforms, the controls will be smaller and
-            // closer together (more dense) than on mobile platforms.
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: Home(),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => Home(),
+            ProductStandalone.routeName: (context) => ProductStandalone(),
+          },
         ));
   }
 }
@@ -79,6 +72,32 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
+            SizedBox(
+              height: 23,
+            ),
+            Center(
+                child: GestureDetector(
+              child: Container(
+                height: 30,
+                padding: EdgeInsets.symmetric(horizontal: 12),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(4),
+                    gradient: LinearGradient(colors: [
+                      const Color(0xff8EA2FF),
+                      const Color(0xff557AC7)
+                    ])),
+                child: Text(
+                  "Go back",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ),
+              onTap: () {
+                Navigator.pop(
+                  context,
+                );
+              },
+            )),
             SizedBox(
               height: 20,
             ),
